@@ -1,0 +1,53 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ receta.titulo }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" color="tertiary"> </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating"> Nuevo ingrediente </ion-label>
+      <ion-input
+        type="text"
+        aria-label="Nombre"
+        (keyup.enter)="agregar()"
+        [(ngModel)]="nombreIngredient"
+        placeholder="Ingredient name"
+      >
+      </ion-input>
+      <ion-input
+        type="text"
+        aria-label="Amount"
+        (keyup.enter)="agregar()"
+        [(ngModel)]="amountIngredient"
+        placeholder="Amount with unit (e.g. 10 mg)"
+      >
+      </ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    <ion-list-header>
+      <ion-label> Lista de ingredientes </ion-label>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let ingredient of receta.ingredients">
+      <ion-item>
+        <ion-checkbox slot="start" [(ngModel)]="ingredient.done" ion-change="cambioCheck()"></ion-checkbox>
+        {{ ingredient.name }} > {{ ingredient.amount }}
+      </ion-item>
+      <ion-item-options side="start">
+        <ion-item-option (click)="editar(ingredient)" color="warning"
+          >Editar</ion-item-option
+        >
+      </ion-item-options>
+      <ion-item-options side="end">
+        <ion-item-option (click)="eliminar(ingredient)" color="danger"
+          >Eliminar</ion-item-option
+        >
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
