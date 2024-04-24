@@ -9,5 +9,16 @@
 <ion-content [fullscreen]="true">
   
   <app-recetas></app-recetas>
+
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="AgregarReceta()"
+  >
+    <ion-fab-button>
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   
 </ion-content>

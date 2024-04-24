@@ -4,20 +4,23 @@
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content [fullscreen]="true">
 
-  <app-recetas></app-recetas>
+  <h2>Recetas</h2>
+  <ion-list>
+    <ion-item *ngFor="let receta of recetasAPI">
+      <ion-label>{{receta.meals[0].strMeal}}</ion-label>
+    </ion-item>
+  </ion-list>
 
   <ion-fab
     vertical="bottom"
     horizontal="end"
     slot="fixed"
-    (click)="AgregarReceta()"
+    (click)="presbutton()"
   >
     <ion-fab-button>
-      <ion-icon name="add-outline"></ion-icon>
+      <ion-icon name="search-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
