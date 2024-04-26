@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecetasService } from '../services/recetas.service';
 import { Receta } from '../models/receta.model';
-import { Ingredient } from '../models/ingredients.model';
+import { Instruction } from '../models/intruction.model';
 
 @Component({
   selector: 'app-agregar',
@@ -11,16 +11,13 @@ import { Ingredient } from '../models/ingredients.model';
 })
 export class AgregarPage implements OnInit {
   receta: Receta;
-  nombreIngredient: string;
-  amountIngredient: string;
+  descripcionPaso: string = '';
   constructor(
     private router: ActivatedRoute,
     public recetasService: RecetasService
   ) {
     let idReceta = this.router.snapshot.paramMap.get('idReceta');
-    this.receta = new Receta('');
-    this.nombreIngredient = '';
-    this.amountIngredient = '';
+    this.receta = new Receta('', [], []);
     if (idReceta) {
       let ObjetoReceta = this.recetasService.obtenerReceta(idReceta);
       if (ObjetoReceta) {
@@ -29,33 +26,23 @@ export class AgregarPage implements OnInit {
     }
   }
   agregar() {
-    if (this.nombreIngredient.length * this.amountIngredient.length === 0) {
+    if (this.descripcionPaso.length === 0) {
       return;
     }
-    const ingredient = new Ingredient(
-      this.nombreIngredient,
-      this.amountIngredient
-    );
-    this.receta.ingredients.push(ingredient);
+    const intruccion = new Instruction(this.descripcionPaso, false);
+    this.receta.recipe.push(intruccion);
     this.recetasService.guardarStorage();
-    this.nombreIngredient = '';
-    this.amountIngredient = '';
+    this.descripcionPaso = '';
   }
-  async EditarIngredient(ingredient: Ingredient) {
+  async EditarInstruccion(instruccion: Instruction) {
     let alerta = await this.recetasService.alertController.create({
-      header: 'Editar ingrediente',
+      header: 'Editar intruccion',
       inputs: [
         {
           type: 'text',
           name: 'titulo',
-          placeholder: 'Ingresar nuevo nombre del ingrediente',
-          value: ingredient.name,
-        },
-        {
-          type: 'text',
-          name: 'amount',
-          placeholder: 'Ingresar nuevo cantidad del ingrediente',
-          value: ingredient.amount,
+          placeholder: 'Ingresar nueva instruccion',
+          value: instruccion.description,
         }
       ],
       buttons: [
@@ -69,27 +56,24 @@ export class AgregarPage implements OnInit {
             let esValido: boolean = this.recetasService.validarInput(data);
             console.log(data);
             if (esValido) {
-              ingredient.name = data.titulo;
-              ingredient.amount = data.amount;
-              this.recetasService.presentToast('Receta editada correctamente!');
+              instruccion.description = data.titulo;
+              this.recetasService.presentToast('Instruccion editada correctamente!');
             }
           },
         },
       ],
     });
     await alerta.present();
-
-    console.log('Editar ingrediente:', ingredient);
   }
-  editar(ingredient: Ingredient) {
-    this.EditarIngredient(ingredient);
+  editar(instruccion: Instruction) {
+    this.EditarInstruccion(instruccion);
   }
-  eliminar(ingredient: Ingredient) {
-    this.receta.ingredients = this.receta.ingredients.filter((item)=> item !== ingredient);
+  eliminar(instruccion: Instruction) {
+    this.receta.recipe = this.receta.recipe.filter((item)=> item !== instruccion);
     this.recetasService.guardarStorage();
   }
   cambioCkeck() {
-    const pendientes = this.receta.ingredients.filter(
+    const pendientes = this.receta.recipe.filter(
       (item) => item.done == false
     ).length;
     if (pendientes == 0) {

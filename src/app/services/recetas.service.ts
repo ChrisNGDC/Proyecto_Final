@@ -14,7 +14,7 @@ export class RecetasService {
     this.cargarStorage();
   }
   crearReceta(nombreReceta: string) {
-    let ObjetoReceta = new Receta(nombreReceta);
+    let ObjetoReceta = new Receta(nombreReceta, [], []);
     this.recetas.push(ObjetoReceta);
     this.guardarStorage();
     return ObjetoReceta.titulo;

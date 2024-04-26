@@ -1,4 +1,5 @@
 import { Ingredient } from "./ingredients.model";
+import { Instruction } from "./intruction.model";
 
 export class Receta {
   id: number;
@@ -7,14 +8,14 @@ export class Receta {
   terminadaEn?: Date;
   completada: boolean;
   ingredients: Ingredient[];
-  recipe: string;
+  recipe: Instruction[];
 
-  constructor(titulo: string) {
+  constructor(titulo: string, ingredients: Ingredient[], recipe: Instruction[]) {
     this.titulo = titulo;
     this.creadaEn = new Date();
     this.completada = false;
-    this.ingredients = [new Ingredient("Ingredient1", "0")];
+    this.ingredients = ingredients;
     this.id = new Date().getTime();
-    this.recipe = 'Receta aca...';
+    this.recipe = recipe;
   }
 }

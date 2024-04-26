@@ -40,6 +40,5 @@ export class Tab2Page {
       ],
     });
     await alerta.present();
-    console.log('Boton presionado!');
   }
 }
