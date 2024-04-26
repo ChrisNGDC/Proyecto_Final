@@ -5,11 +5,11 @@ import { Receta } from '../models/receta.model';
 import { Instruction } from '../models/intruction.model';
 
 @Component({
-  selector: 'app-agregar',
-  templateUrl: './agregar.page.html',
-  styleUrls: ['./agregar.page.scss'],
+  selector: 'app-mostrarInstrucciones',
+  templateUrl: './mostrarInstrucciones.page.html',
+  styleUrls: ['./mostrarInstrucciones.page.scss'],
 })
-export class AgregarPage implements OnInit {
+export class MostrarInstrucciones implements OnInit {
   receta: Receta;
   descripcionPaso: string = '';
   constructor(

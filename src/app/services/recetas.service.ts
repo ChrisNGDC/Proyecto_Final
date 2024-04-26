@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Receta } from '../models/receta.model';
 import { AlertController, ToastController } from '@ionic/angular';
+import { Instruction } from '../models/intruction.model';
+import { Ingredient } from '../models/ingredients.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +15,11 @@ export class RecetasService {
   ) {
     this.cargarStorage();
   }
-  crearReceta(nombreReceta: string) {
-    let ObjetoReceta = new Receta(nombreReceta, [], []);
+  crearReceta(nombreReceta: string, ingredientes: Ingredient[], instrucciones: Instruction[]) {
+    console.log(nombreReceta);
+    console.log(ingredientes);
+    console.log(instrucciones);
+    let ObjetoReceta = new Receta(nombreReceta, ingredientes, instrucciones);
     this.recetas.push(ObjetoReceta);
     this.guardarStorage();
     return ObjetoReceta.titulo;

@@ -7,8 +7,12 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'agregar/:idReceta',
-    loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
+    path: 'mostrar-ingredientes/:idReceta',
+    loadChildren: () => import('./mostrar-ingredientes/mostrar-ingredientes.module').then( m => m.MostrarIngredientesPageModule)
+  },
+  {
+    path: 'mostrarInstrucciones/:idReceta',
+    loadChildren: () => import('./mostrarInstrucciones/mostrarInstrucciones.module').then( m => m.MostrarInstruccionesModule)
   }
 ];
 @NgModule({

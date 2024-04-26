@@ -57,7 +57,7 @@ export class RecetasComponent  implements OnInit {
     console.log('Eliminar receta:', receta);
   }
   recetaSeleccionada(receta: Receta) {
-    const URL = '/agregar/' + receta.id
+    const URL = '/mostrar-ingredientes/' + receta.id
     this.router.navigateByUrl(URL);
   }
 }

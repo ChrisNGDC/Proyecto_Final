@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { BaseRecetasService } from '../services/base-recetas.service';
-import { Receta } from '../models/receta.model';
+import { RecetasService } from '../services/recetas.service';
 import { Ingredient } from '../models/ingredients.model';
+import { Instruction } from '../models/intruction.model';
 
 @Component({
   selector: 'app-tab1',
@@ -11,15 +12,18 @@ import { Ingredient } from '../models/ingredients.model';
 export class Tab1Page {
   recetasAPI: any[] = [];
   cantidadRecetas = 5;
-  constructor(public baseRecetas: BaseRecetasService) {}
+  constructor(
+    public baseRecetas: BaseRecetasService,
+    public recetasService: RecetasService
+  ) {}
   ngOnInit() {
     this.ionViewDidLoad();
   }
   ionViewDidLoad() {
-    this.getRecetas()
+    this.getRecetas();
   }
   getRecetas() {
-    this.recetasAPI = []
+    this.recetasAPI = [];
     for (let i = 0; i < this.cantidadRecetas; i++) {
       this.baseRecetas.obtenerReceta().subscribe({
         next: (data) => this.recetasAPI.push(data),
@@ -27,19 +31,34 @@ export class Tab1Page {
       });
     }
   }
+  async AgregarReceta(nombre: string, ingredientes: Ingredient[], instrucciones: Instruction[]) {
+    let creadaOk = this.recetasService.crearReceta(nombre, ingredientes, instrucciones);
+    if (creadaOk) {
+      this.recetasService.presentToast('Receta guardada correctamente!');
+    }
+  }
   guardarReceta(unaReceta: any) {
-    let ingredientes = []
-    let numeroIngrediente = 1
+    let ingredientes = [];
+    let instrucciones: Instruction[] = [];
+    let numeroIngrediente = 1;
     do {
-      let ingrediente = new Ingredient(unaReceta[`strIngredient${numeroIngrediente}`], unaReceta[`strMeasure${numeroIngrediente}`]);
+      let ingrediente = new Ingredient(
+        unaReceta[`strIngredient${numeroIngrediente}`],
+        unaReceta[`strMeasure${numeroIngrediente}`]
+      );
       if (ingrediente.name == '' || ingrediente.amount == '') {
         break;
       }
       ingredientes.push(ingrediente);
-      numeroIngrediente++
-    } while (true)
-    const receta = new Receta(unaReceta.strMeal, ingredientes, unaReceta.strInstructions.split('.'))
-    receta.id = unaReceta.idMeal
-    console.log(receta);
+      numeroIngrediente++;
+    } while (true);
+    let nombre: string = unaReceta.strMeal;
+    let instruccionesStr: string[] = unaReceta.strInstructions.split('.');
+    instruccionesStr.splice(-1, 1);
+    instruccionesStr.forEach((instruccionStr) => {
+      let instruccion = new Instruction(instruccionStr, false);
+      instrucciones.push(instruccion);
+    });
+    this.AgregarReceta(nombre, ingredientes, instrucciones);
   }
 }
