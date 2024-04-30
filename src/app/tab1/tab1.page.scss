@@ -1,4 +1,18 @@
 * {
-    margin: 0;
-    text-align: center;
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+ion-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px ,1fr));
+  grid-gap: 1em;
+}
+
+ion-col {
+  margin: 0;
+  color: #fff;
+  text-align: center;
 }

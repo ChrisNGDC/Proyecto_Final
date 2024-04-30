@@ -1,23 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Recetas </ion-title>
+    <ion-title> Buscar </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <ion-list>
-    <ion-item-sliding *ngFor="let receta of recetasAPI">
-      <ion-item>
-        <ion-label>{{receta.meals[0].strMeal}}</ion-label>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="guardarReceta(receta.meals[0])"
-          >Guardar</ion-item-option
-        >
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+  <ion-grid [fixed]="true">
+    <ion-row *ngFor="let receta of recetasAPI">
+      <ion-col>
+        <ion-img
+          src="{{receta.meals[0].strMealThumb}}"
+          alt="The Wisconsin State Capitol building in Madison, WI at night"
+        ></ion-img>
+        <ion-item>
+          <ion-label>{{receta.meals[0].strMeal}}</ion-label>
+          <ion-button color="danger" (click)="guardarReceta(receta.meals[0])"
+            >Guardar</ion-button
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-fab
     vertical="bottom"

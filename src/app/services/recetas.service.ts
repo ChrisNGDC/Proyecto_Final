@@ -15,11 +15,8 @@ export class RecetasService {
   ) {
     this.cargarStorage();
   }
-  crearReceta(nombreReceta: string, ingredientes: Ingredient[], instrucciones: Instruction[]) {
-    console.log(nombreReceta);
-    console.log(ingredientes);
-    console.log(instrucciones);
-    let ObjetoReceta = new Receta(nombreReceta, ingredientes, instrucciones);
+  crearReceta(nombreReceta: string, ingredientes: Ingredient[], instrucciones: Instruction[], imagen: string) {
+    let ObjetoReceta = new Receta(nombreReceta, ingredientes, instrucciones, imagen);
     this.recetas.push(ObjetoReceta);
     this.guardarStorage();
     return ObjetoReceta.titulo;

@@ -28,7 +28,7 @@ export class Tab2Page {
           handler: (data: any) => {
             let esValido: boolean = this.recetasService.validarInput(data);
             if (esValido) {
-              let creadaOk = this.recetasService.crearReceta(data.titulo, [], []);
+              let creadaOk = this.recetasService.crearReceta(data.titulo, [], [], '');
               if (creadaOk) {
                 this.recetasService.presentToast(
                   'Receta creada correctamente!'

@@ -11,7 +11,7 @@ import { Instruction } from '../models/intruction.model';
 })
 export class Tab1Page {
   recetasAPI: any[] = [];
-  cantidadRecetas = 5;
+  cantidadRecetas = 9;
   constructor(
     public baseRecetas: BaseRecetasService,
     public recetasService: RecetasService
@@ -31,8 +31,8 @@ export class Tab1Page {
       });
     }
   }
-  async AgregarReceta(nombre: string, ingredientes: Ingredient[], instrucciones: Instruction[]) {
-    let creadaOk = this.recetasService.crearReceta(nombre, ingredientes, instrucciones);
+  async AgregarReceta(nombre: string, ingredientes: Ingredient[], instrucciones: Instruction[], imagen: string) {
+    let creadaOk = this.recetasService.crearReceta(nombre, ingredientes, instrucciones, imagen);
     if (creadaOk) {
       this.recetasService.presentToast('Receta guardada correctamente!');
     }
@@ -41,6 +41,7 @@ export class Tab1Page {
     let ingredientes = [];
     let instrucciones: Instruction[] = [];
     let numeroIngrediente = 1;
+    let imagen: string = '';
     do {
       let ingrediente = new Ingredient(
         unaReceta[`strIngredient${numeroIngrediente}`],
@@ -59,6 +60,6 @@ export class Tab1Page {
       let instruccion = new Instruction(instruccionStr, false);
       instrucciones.push(instruccion);
     });
-    this.AgregarReceta(nombre, ingredientes, instrucciones);
+    this.AgregarReceta(nombre, ingredientes, instrucciones, imagen);
   }
 }

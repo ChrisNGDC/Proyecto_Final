@@ -17,7 +17,7 @@ export class MostrarInstrucciones implements OnInit {
     public recetasService: RecetasService
   ) {
     let idReceta = this.router.snapshot.paramMap.get('idReceta');
-    this.receta = new Receta('', [], []);
+    this.receta = new Receta('', [], [], '');
     if (idReceta) {
       let ObjetoReceta = this.recetasService.obtenerReceta(idReceta);
       if (ObjetoReceta) {

@@ -20,7 +20,7 @@ export class MostrarIngredientesPage implements OnInit {
     private routerB: Router
   ) {
     let idReceta = this.router.snapshot.paramMap.get('idReceta');
-    this.receta = new Receta('', [], []);
+    this.receta = new Receta('', [], [], '');
     if (idReceta) {
       let ObjetoReceta = this.recetasService.obtenerReceta(idReceta);
       if (ObjetoReceta) {
