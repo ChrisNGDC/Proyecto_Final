@@ -1,0 +1,26 @@
+.profile-photo {
+  min-height: 40vmin;
+  min-width: 40vmin;
+}
+
+ion-avatar {
+  --border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  margin: 0;
+}
+
+ion-col {
+  display: flex;
+  justify-content: center;
+}
+
+ion-text {
+  text-align: center;
+  margin: auto;
+}
+
+.username {
+  font-size: 4rem;
+}

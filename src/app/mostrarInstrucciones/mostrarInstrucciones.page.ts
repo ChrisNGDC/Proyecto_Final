@@ -65,6 +65,10 @@ export class MostrarInstrucciones implements OnInit {
     });
     await alerta.present();
   }
+  /**
+   * 
+   * @param instruccion 
+   */
   editar(instruccion: Instruction) {
     this.EditarInstruccion(instruccion);
   }
