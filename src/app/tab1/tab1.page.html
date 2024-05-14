@@ -17,9 +17,9 @@
         ></ion-img>
         <ion-item>
           <ion-label>{{receta.meals[0].strMeal}}</ion-label>
-          <ion-button color="danger" (click)="guardarReceta(receta.meals[0])"
-            >Guardar</ion-button
-          >
+          <ion-button aria-label="Favorite" color="light" (click)="guardarReceta(receta.meals[0])">
+            <ion-icon [class.isFavorite]="receta.meals[0].favorite" name="heart" aria-hidden="true"></ion-icon>
+          </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>

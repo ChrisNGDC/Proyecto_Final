@@ -12,6 +12,7 @@ import { Instruction } from '../models/intruction.model';
 export class Tab1Page {
   recetasAPI: any[] = [];
   cantidadRecetas = 9;
+  isActive: boolean = false;
   constructor(
     public baseRecetas: BaseRecetasService,
     public recetasService: RecetasService
@@ -27,9 +28,10 @@ export class Tab1Page {
     for (let i = 0; i < this.cantidadRecetas; i++) {
       this.baseRecetas.obtenerReceta().subscribe({
         next: (data) => this.recetasAPI.push(data),
-        error: (error) => console.log(error),
+        error: (error) => console.log(error.statusText),
       });
     }
+    console.log(this.recetasAPI);
   }
   async AgregarReceta(nombre: string, ingredientes: Ingredient[], instrucciones: Instruction[], imagen: string) {
     let creadaOk = this.recetasService.crearReceta(nombre, ingredientes, instrucciones, imagen);
@@ -60,6 +62,7 @@ export class Tab1Page {
       let instruccion = new Instruction(instruccionStr, false);
       instrucciones.push(instruccion);
     });
+    unaReceta.favorite = true;
     this.AgregarReceta(nombre, ingredientes, instrucciones, imagen);
   }
 }

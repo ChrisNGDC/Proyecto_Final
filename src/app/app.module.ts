@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { BaseRecetasService } from './services/base-recetas.service';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
