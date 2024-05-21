@@ -15,8 +15,8 @@ export class RecetasService {
   ) {
     this.cargarStorage();
   }
-  crearReceta(nombreReceta: string, ingredientes: Ingredient[], instrucciones: Instruction[], imagen: string) {
-    let ObjetoReceta = new Receta(nombreReceta, ingredientes, instrucciones, imagen);
+  crearReceta(nombreReceta: string, ingredientes: Ingredient[], instrucciones: Instruction[], imagen: string, id?: number) {
+    let ObjetoReceta = new Receta(nombreReceta, ingredientes, instrucciones, imagen, id);
     this.recetas.push(ObjetoReceta);
     this.guardarStorage();
     return ObjetoReceta.titulo;
@@ -34,9 +34,9 @@ export class RecetasService {
       return (this.recetas = objLista);
     }
   }
-  eliminarReceta(receta: Receta) {
+  eliminarReceta(idReceta: number) {
     let nuevoSave = this.recetas.filter(
-      (unaReceta) => unaReceta.id !== receta.id
+      (unaReceta) => unaReceta.id !== idReceta
     );
 
     this.recetas = nuevoSave;

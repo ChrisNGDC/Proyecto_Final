@@ -17,8 +17,7 @@ export class Tab3Page {
   constructor(public photoService: PhotoService) {}
 
   /**
-   * @function TomarFoto
-   * @description Le permite sacar un foto y luego la asigna al atributo photo
+   * Toma una foto con la camara y la asigna a la variable photo
    */
   public takePhoto() {
     this.photoService

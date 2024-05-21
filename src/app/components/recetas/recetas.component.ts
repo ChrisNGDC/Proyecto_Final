@@ -8,14 +8,16 @@ import { Router } from '@angular/router';
   templateUrl: './recetas.component.html',
   styleUrls: ['./recetas.component.scss'],
 })
-export class RecetasComponent  implements OnInit {
+export class RecetasComponent {
 
   constructor(
     public recetasService: RecetasService,
     private router: Router
   ) { }
-
-  ngOnInit() {}
+  /**
+   * 
+   * @param receta 
+   */
   async EditarReceta(receta: Receta) {
     let alerta = await this.recetasService.alertController.create({
       header: 'Editar receta',
@@ -53,7 +55,7 @@ export class RecetasComponent  implements OnInit {
     this.EditarReceta(receta)
   }
   eliminarReceta(receta: Receta) {
-    this.recetasService.eliminarReceta(receta);
+    this.recetasService.eliminarReceta(receta.id);
     console.log('Eliminar receta:', receta);
   }
   recetaSeleccionada(receta: Receta) {

@@ -1,25 +1,45 @@
-<!--
-  Pagina de busqueda de recetas, mostrando por categoria,
--->
-
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Buscar </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
+  <ion-label class="titles">Sorpresas</ion-label>
   <ion-grid [fixed]="true">
     <ion-row *ngFor="let receta of recetasAPI">
       <ion-col>
-        <ion-img
-          src="{{receta.meals[0].strMealThumb}}"
-        ></ion-img>
+        <ion-img src="{{receta.meals[0].strMealThumb}}"></ion-img>
         <ion-item>
           <ion-label>{{receta.meals[0].strMeal}}</ion-label>
-          <ion-button aria-label="Favorite" color="light" (click)="guardarReceta(receta.meals[0])">
-            <ion-icon [class.isFavorite]="receta.meals[0].favorite" name="heart" aria-hidden="true"></ion-icon>
+          <ion-button
+            aria-label="Favorite"
+            color="light"
+            (click)="interactuarReceta(receta.meals[0])"
+          >
+            <ion-icon
+              [class.isFavorite]="receta.meals[0].favorite"
+              name="heart"
+              aria-hidden="true"
+            ></ion-icon>
           </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-label class="titles">Categorias</ion-label>
+  <ion-grid [fixed]="true">
+    <ion-row *ngFor="let categoria of categorias">
+      <ion-col>
+        <ion-img src="{{categoria.strCategoryThumb}}"></ion-img>
+        <ion-item>
+          <ion-label>{{categoria.strCategory}}</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-label class="titles">Paises</ion-label>
+  <ion-grid [fixed]="true">
+    <ion-row *ngFor="let area of areas">
+      <ion-col>
+        <ion-img src={{area.getImage()}}>"></ion-img>
+        <ion-item>
+          <ion-label>{{area.name}}</ion-label>
         </ion-item>
       </ion-col>
     </ion-row>

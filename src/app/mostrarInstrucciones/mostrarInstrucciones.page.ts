@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/component-selector */
+/* eslint-disable @angular-eslint/component-class-suffix */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecetasService } from '../services/recetas.service';
@@ -9,7 +11,7 @@ import { Instruction } from '../models/intruction.model';
   templateUrl: './mostrarInstrucciones.page.html',
   styleUrls: ['./mostrarInstrucciones.page.scss'],
 })
-export class MostrarInstrucciones implements OnInit {
+export class MostrarInstrucciones {
   receta: Receta;
   descripcionPaso: string = '';
   constructor(
@@ -76,18 +78,16 @@ export class MostrarInstrucciones implements OnInit {
     this.receta.recipe = this.receta.recipe.filter((item)=> item !== instruccion);
     this.recetasService.guardarStorage();
   }
-  cambioCkeck() {
-    const pendientes = this.receta.recipe.filter(
-      (item) => item.done == false
-    ).length;
-    if (pendientes == 0) {
-      this.receta.completada = true;
-      this.receta.terminadaEn = new Date();
-    } else {
+  cambioCheck() {
+    const faltanPasos = this.receta.recipe.some((item) => item.done == false);
+    if (faltanPasos) {
       this.receta.completada = false;
       this.receta.terminadaEn = undefined;
+    } else {
+      this.receta.completada = true;
+      this.receta.terminadaEn = new Date();
+      console.log(this.receta);
     }
     this.recetasService.guardarStorage();
   }
-  ngOnInit(): void {}
 }

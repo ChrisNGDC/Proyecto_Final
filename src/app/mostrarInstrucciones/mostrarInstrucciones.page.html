@@ -27,7 +27,7 @@
     </ion-list-header>
     <ion-item-sliding *ngFor="let paso of receta.recipe">
       <ion-item>
-        <ion-checkbox slot="start" [(ngModel)]="paso.done" ion-change="cambioCheck()"></ion-checkbox>
+        <ion-checkbox slot="start" [(ngModel)]="paso.done" (ionChange)="cambioCheck()"></ion-checkbox>
         {{ paso.description }}
       </ion-item>
       <ion-item-options side="start">

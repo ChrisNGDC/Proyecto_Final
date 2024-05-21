@@ -13,4 +13,10 @@ export class BaseRecetasService {
   obtenerReceta() {
     return this.http.get('https://www.themealdb.com/api/json/v1/1/random.php');
   }
+  obtenerCategorias(){ 
+    return this.http.get("https://www.themealdb.com/api/json/v1/1/categories.php");
+  }
+  obtenerPaises() {
+    return this.http.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
+  }
 }
