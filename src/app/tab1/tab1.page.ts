@@ -4,6 +4,7 @@ import { RecetasService } from '../services/recetas.service';
 import { Ingredient } from '../models/ingredients.model';
 import { Instruction } from '../models/intruction.model';
 import { Area } from '../models/areas.model';
+import { TranslateService } from '../services/translate.service';
 
 @Component({
   selector: 'app-tab1',
@@ -16,6 +17,7 @@ export class Tab1Page {
   isActive: boolean = false;
   categorias: any[] = [];
   countriesNames: string[] = [];
+  // Esto es de esta manera debido a que la API da el nombre del area y las imagenes se trabajan con las siglas y no hay una conversion directa debido a los nombres particulares que da la API
   areas: Area[] = [
     new Area('America', 'US'),
     new Area('British', 'GB'),
@@ -48,7 +50,8 @@ export class Tab1Page {
   ];
   constructor(
     public baseRecetas: BaseRecetasService,
-    public recetasService: RecetasService
+    public recetasService: RecetasService,
+    public translate: TranslateService
   ) {}
   /**
    * Se ejecuta al iniciar la carga de la tab
@@ -132,7 +135,7 @@ export class Tab1Page {
     let ingredientes = [];
     let instrucciones: Instruction[] = [];
     let numeroIngrediente = 1;
-    let imagen: string = '';
+    let imagen: string = unaReceta['strMealThumb'];
     do {
       let ingrediente = new Ingredient(
         unaReceta[`strIngredient${numeroIngrediente}`],
@@ -148,8 +151,10 @@ export class Tab1Page {
     let instruccionesStr: string[] = unaReceta.strInstructions.split('.');
     instruccionesStr.splice(-1, 1);
     instruccionesStr.forEach((instruccionStr) => {
-      let instruccion = new Instruction(instruccionStr, false);
-      instrucciones.push(instruccion);
+      this.translate.traslate(instruccionStr).then((result) => {
+        instruccionStr = result
+      })
+      instrucciones.push(new Instruction(instruccionStr, false));
     });
     this.AgregarReceta(
       nombre,
