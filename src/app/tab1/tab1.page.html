@@ -21,11 +21,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-label class="titles">Categorias</ion-label>
+
+  <ion-label class="titles">{{categoriaActual}}</ion-label>
   <ion-grid [fixed]="true">
     <ion-row *ngFor="let categoria of categorias">
       <ion-col>
-        <ion-img src="{{categoria.strCategoryThumb}}"></ion-img>
+        <ion-img (click)="elegirCategoria(categoria['strCategory'])" src="{{categoria.strCategoryThumb}}"></ion-img>
         <ion-item>
           <ion-label>{{categoria.strCategory}}</ion-label>
         </ion-item>

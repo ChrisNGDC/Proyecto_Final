@@ -19,4 +19,7 @@ export class BaseRecetasService {
   obtenerPaises() {
     return this.http.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
   }
+  obtenerRecetasSegunCategoria(categoria: string) {
+    return this.http.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + categoria);
+  }
 }

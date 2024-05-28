@@ -16,6 +16,7 @@ export class Tab1Page {
   cantidadRecetas = 9;
   isActive: boolean = false;
   categorias: any[] = [];
+  categoriaActual = "Categorias";
   countriesNames: string[] = [];
   // Esto es de esta manera debido a que la API da el nombre del area y las imagenes se trabajan con las siglas y no hay una conversion directa debido a los nombres particulares que da la API
   areas: Area[] = [
@@ -163,5 +164,32 @@ export class Tab1Page {
       imagen,
       unaReceta.idMeal / 1
     );
+  }
+  elegirCategoria(categoria: string) {
+    if (categoria != 'Volver') {
+      this.categoriaActual = categoria;
+      this.categorias = [
+        {
+          "strCategory": "Volver",
+          "strCategoryThumb": "../assets/back.png",
+        }
+      ]
+      this.baseRecetas.obtenerRecetasSegunCategoria(categoria).subscribe({
+        next: (data) => {
+          Object.values(data).forEach((recetas: any) =>
+            recetas.forEach( (receta: any) =>
+              this.categorias.push({
+              "strCategory": receta["strMeal"],
+              "strCategoryThumb": receta["strMealThumb"]
+            })
+          ));
+        },
+        error: (error) => console.log(error.statusText),
+      });
+      console.log(this.categorias)
+    } else {
+      this.categoriaActual = "Categorias";
+      this.getCategorias();
+    }
   }
 }
