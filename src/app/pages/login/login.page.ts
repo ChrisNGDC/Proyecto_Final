@@ -40,11 +40,12 @@ export class LoginPage implements OnInit {
 
       if(user){
         loading.dismiss()
-        this.route.navigate(['/home'])
+        this.route.navigate(['/tabs'])
       }else {
         console.log('provide correct values')
       }
     }
+    loading.dismiss()
   }
 
 
