@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { AutheticationService } from './authetication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera
 export class PhotoService {
   public profilePhotos: UserPhoto[] = [];
   public photos: UserPhoto[] = [];
-  constructor() { }
+  constructor(private auth: AutheticationService) { }
   public async takePhoto(id:string, filePath: string) {
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
@@ -21,6 +22,7 @@ export class PhotoService {
         filepath: filePath,
         webviewPath: capturedPhoto.webPath!
       });
+      await this.savePhoto()
     }
     else {
       this.photos.unshift({
@@ -29,6 +31,9 @@ export class PhotoService {
         webviewPath: capturedPhoto.webPath!
       });
     }
+  }
+  async savePhoto() {
+    this.auth.updatePhoto(this.profilePhotos[0])
   }
 }
 

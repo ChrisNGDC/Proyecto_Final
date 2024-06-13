@@ -38,12 +38,13 @@ export class SignupPage implements OnInit {
     await loading.present();
     
     if (this.regForm.valid) {
-      const user = await this.authService.registerUser(this.regForm.value.email,this.regForm.value.password,this.regForm.value.fullname).catch((error)=> {
+      const user = await this.authService.registerUser(this.regForm.value.email,this.regForm.value.password).catch((error)=> {
         console.log(error);
         loading.dismiss()
       })
 
       if(user){
+        await this.authService.generateUser(this.regForm.value.fullname)
         loading.dismiss()
         this.router.navigate(['/tabs'])
       }else {

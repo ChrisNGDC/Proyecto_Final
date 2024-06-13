@@ -22,4 +22,10 @@ export class BaseRecetasService {
   obtenerRecetasSegunCategoria(categoria: string) {
     return this.http.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + categoria);
   }
+  obtenerRecetaSegunID(id: string) {
+    return this.http.get("https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + id)
+  }
+  obtenerRecetasSegunPais(pais: string) {
+    return this.http.get("https://www.themealdb.com/api/json/v1/1/filter.php?a=" + pais)
+  }
 }
